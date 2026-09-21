@@ -7,7 +7,7 @@
         <a href="#">用户协议</a>
         <a href="#">隐私政策</a>
       </div>
-      <p class="copyright">© 2026 VidJoy</p>
+      <p class="copyright">© 2026 VistaMind</p>
     </div>
   </footer>
 </template>

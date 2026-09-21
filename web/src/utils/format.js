@@ -254,7 +254,7 @@ export function applyUserActionList(list) {
   return actions
 }
 
-const DEVICE_ID_KEY = 'vidjoy_device_id'
+const DEVICE_ID_KEY = 'vistamind_device_id'
 
 export function getDeviceId() {
   try {

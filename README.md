@@ -1,6 +1,6 @@
-# VidJoy
+# VistaMind
 
-基于 Vue 3 + Vite 构建的视频平台前端，对接 VidJoy 后端 API。
+基于 Vue 3 + Vite 构建的视频平台前端，对接 VistaMind 后端 API。
 
 ## 技术栈
 
@@ -50,7 +50,7 @@ npm run dev
 
 ## 后端配置
 
-确保 VidJoy 后端运行在 `http://localhost:7071`，Vite 已配置代理：
+确保 VistaMind 后端运行在 `http://localhost:7071`，Vite 已配置代理：
 
 ```
 /api/* -> http://localhost:7071/*
@@ -99,7 +99,7 @@ npm run dev:admin
 
 ## 设计风格
 
-- 主色调：`#FB7299`（VidJoy 粉）
+- 主色调：`#FB7299`（VistaMind 粉）
 - 圆角卡片布局
 - 响应式网格视频列表
 - 毛玻璃顶栏

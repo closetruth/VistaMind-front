@@ -6,7 +6,7 @@
           <rect width="48" height="48" rx="10" fill="#FB7299"/>
           <text x="24" y="33" text-anchor="middle" fill="white" font-size="22" font-weight="bold">V</text>
         </svg>
-        <span class="logo-text">VidJoy</span>
+        <span class="logo-text">VistaMind</span>
       </router-link>
 
       <div class="search-box" @click.stop>
@@ -25,7 +25,7 @@
           </button>
         </form>
         <div v-if="showSuggest && hotKeywords.length" class="search-suggest">
-          <div class="suggest-title">VidJoy热搜</div>
+          <div class="suggest-title">VistaMind热搜</div>
           <div
             v-for="(item, index) in hotKeywords"
             :key="index"

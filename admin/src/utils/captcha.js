@@ -1,5 +1,5 @@
 /**
- * 解析 VidJoy 验证码接口返回
+ * 解析 VistaMind 验证码接口返回
  * @returns {{ img: string, key: string }}
  */
 export function parseCaptchaResponse(res) {

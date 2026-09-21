@@ -3,7 +3,7 @@
     <aside class="sidebar">
       <div class="sidebar-logo">
         <span class="logo-icon">V</span>
-        <span class="logo-text">VidJoy</span>
+        <span class="logo-text">VistaMind</span>
       </div>
       <nav class="sidebar-nav">
         <router-link

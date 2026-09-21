@@ -3,7 +3,7 @@
     <div class="login-card">
       <div class="login-header">
         <div class="logo">V</div>
-        <h1>VidJoy 管理后台</h1>
+        <h1>VistaMind 管理后台</h1>
         <p>请登录管理员账号</p>
       </div>
 

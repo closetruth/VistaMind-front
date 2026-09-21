@@ -1,5 +1,5 @@
 /**
- * 解析 VidJoy 验证码接口返回
+ * 解析 VistaMind 验证码接口返回
  */
 export function parseCaptchaResponse(res) {
   const data = res?.data

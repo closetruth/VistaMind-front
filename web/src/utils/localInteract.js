@@ -25,10 +25,10 @@ function snapshot(video) {
   }
 }
 
-const HISTORY_KEY = 'vidjoy_watch_history'
-const COLLECT_KEY = 'vidjoy_collections'
-const LIKE_KEY = 'vidjoy_likes'
-const COIN_KEY = 'vidjoy_coins'
+const HISTORY_KEY = 'vistamind_watch_history'
+const COLLECT_KEY = 'vistamind_collections'
+const LIKE_KEY = 'vistamind_likes'
+const COIN_KEY = 'vistamind_coins'
 
 export function addWatchHistory(video) {
   if (!video?.videoId) return

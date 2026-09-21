@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-VidJoy is a video-sharing platform with two separate Vite + Vue 3 front-end projects in this repo:
+VistaMind is a video-sharing platform with two separate Vite + Vue 3 front-end projects in this repo:
 
 | Project | Directory | Dev Port | Backend Proxy | Description |
 |---------|-----------|----------|---------------|-------------|

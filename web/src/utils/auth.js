@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'vidjoy_token'
+const TOKEN_KEY = 'vistamind_token'
 
 export function saveToken(token) {
   if (token) {

@@ -96,32 +96,38 @@ const pageNo = ref(1)
 const hasMore = ref(true)
 const activeSubId = ref(null)
 
-// 当前选中的分类
+// 当前选中的分类（后端返回 tree 根数组，全是顶级分类）
 const category = computed(() => {
-  const id = route.params.categoryId
-  return allCategories.value.find((c) => c.categoryId === id) || null
+  const id = Number(route.params.categoryId)
+  return allCategories.value.find((c) => Number(c.categoryId) === id) || null
 })
 
-// 当前分类的子分类
+// 当前分类的子分类 —— 后端 convert2Tree=true，子分类在 children 里
 const subCategories = computed(() => {
   if (!category.value) return []
-  return allCategories.value.filter(
-    (c) => c.pCategoryId && c.pCategoryId !== '0' && c.pCategoryId === category.value.categoryId
-  )
+  return category.value.children || []
 })
 
 // 当前用于请求的 categoryId
-const requestCategoryId = computed(() => activeSubId.value || category.value?.categoryId || route.params.categoryId)
+const requestCategoryId = computed(() => {
+  const activeId = Number(activeSubId.value)
+  const catId = Number(category.value?.categoryId)
+  const routeId = Number(route.params.categoryId)
+  const picked = activeId || catId || routeId
+  return Number.isFinite(picked) ? picked : null
+})
 
 // 当前用于请求的 pCategoryId
 const requestPCategoryId = computed(() => {
-  if (!category.value) return '0'
+  if (!category.value) return 0
   // 如果选中了子分类，pCategoryId 就是父分类 ID
-  if (activeSubId.value && activeSubId.value !== category.value.categoryId) {
-    return category.value.categoryId
+  if (activeSubId.value && Number(activeSubId.value) !== Number(category.value.categoryId)) {
+    return Number(category.value.categoryId)
   }
   // 选中父分类时，pCategoryId = categoryId
-  return category.value.pCategoryId || category.value.categoryId
+  const pId = Number(category.value.pCategoryId)
+  const cId = Number(category.value.categoryId)
+  return pId && pId > 0 ? pId : cId
 })
 
 async function loadCategories() {

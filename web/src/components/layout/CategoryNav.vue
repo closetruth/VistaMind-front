@@ -15,7 +15,7 @@
           :key="cat.categoryId"
           :to="`/category/${cat.categoryId}`"
           class="nav-tab"
-          :class="{ active: route.name === 'Category' && route.params.categoryId === cat.categoryId }"
+          :class="{ active: route.name === 'Category' && Number(route.params.categoryId) === Number(cat.categoryId) }"
         >
           <img v-if="cat.icon" :src="getResourceUrl(cat.icon)" class="cat-icon" alt="" />
           {{ cat.categoryName }}

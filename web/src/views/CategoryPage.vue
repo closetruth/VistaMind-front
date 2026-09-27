@@ -217,7 +217,7 @@ onMounted(async () => {
   position: relative;
   height: 200px;
   overflow: hidden;
-  background: #e3e5e7;
+  background: var(--bili-border-light);
   margin-bottom: 8px;
 }
 
@@ -280,7 +280,7 @@ onMounted(async () => {
 
 // 子分类 Tab
 .sub-tabs-bar {
-  background: #fff;
+  background: var(--bili-white);
   border-bottom: 1px solid var(--bili-border);
   margin-bottom: 20px;
 }

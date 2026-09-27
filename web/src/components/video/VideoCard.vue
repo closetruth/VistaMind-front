@@ -59,7 +59,6 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  /** 搜索页：按关键词高亮标题 */
   highlight: {
     type: Boolean,
     default: false
@@ -85,15 +84,16 @@ const coverUrl = computed(() => {
 <style scoped lang="scss">
 .video-card {
   display: block;
-  border-radius: var(--bili-radius);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: all var(--bili-transition);
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: var(--bili-shadow-hover);
 
     .card-cover img {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
   }
 }
@@ -101,15 +101,15 @@ const coverUrl = computed(() => {
 .card-cover {
   position: relative;
   aspect-ratio: 16 / 9;
-  border-radius: var(--bili-radius);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
-  background: #e3e5e7;
+  background: var(--bili-border-light);
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -119,9 +119,11 @@ const coverUrl = computed(() => {
   bottom: 8px;
   padding: 2px 6px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   color: #fff;
   font-size: 12px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
 }
 
 .cover-mask {
@@ -131,8 +133,8 @@ const coverUrl = computed(() => {
   bottom: 0;
   display: flex;
   gap: 12px;
-  padding: 24px 8px 8px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  padding: 28px 10px 8px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
   color: #fff;
   font-size: 12px;
 }
@@ -145,20 +147,20 @@ const coverUrl = computed(() => {
 }
 
 .card-info {
-  padding: 10px 4px 4px;
+  padding: 12px 4px 6px;
 }
 
 .video-title {
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--bili-text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 6px;
-  transition: color 0.2s;
+  transition: color var(--bili-transition-fast);
 
   .video-card:hover & {
     color: var(--bili-pink);
@@ -166,9 +168,11 @@ const coverUrl = computed(() => {
 
   :deep(.highlight) {
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.15);
+    background: var(--bili-pink-light);
     font-style: normal;
     font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
   }
 }
 
@@ -181,6 +185,7 @@ const coverUrl = computed(() => {
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: color var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-pink);

@@ -410,7 +410,7 @@ onMounted(async () => {
   gap: 12px;
   align-items: flex-start;
   padding: 16px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
 
   &.unread {
@@ -425,7 +425,7 @@ onMounted(async () => {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: #f6f7f8;
+  background: var(--bili-border-light);
 }
 
 .msg-content {
@@ -461,7 +461,7 @@ onMounted(async () => {
     font-size: 12px;
     color: var(--bili-text-tertiary);
     padding: 6px 8px;
-    background: #f6f7f8;
+    background: var(--bili-border-light);
     border-radius: 4px;
   }
 
@@ -488,7 +488,7 @@ onMounted(async () => {
   object-fit: cover;
   flex-shrink: 0;
   cursor: pointer;
-  background: #f6f7f8;
+  background: var(--bili-border-light);
 }
 
 .del-btn {
@@ -499,7 +499,7 @@ onMounted(async () => {
   flex-shrink: 0;
 
   &:hover {
-    background: #f6f7f8;
+    background: var(--bili-border-light);
     color: var(--bili-pink);
   }
 }

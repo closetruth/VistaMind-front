@@ -1,8 +1,16 @@
 <template>
   <div class="upload-page container">
-    <h1 class="page-title">{{ isEditMode ? '编辑视频' : '投稿中心' }}</h1>
+    <div class="page-header">
+      <h1 class="page-title">{{ isEditMode ? '编辑视频' : '投稿中心' }}</h1>
+      <p class="page-desc">{{ isEditMode ? '修改已投稿视频的信息' : '上传视频并发布，与全世界分享你的作品' }}</p>
+    </div>
     <div class="upload-card">
-      <p v-if="!isEditMode" class="upload-hint">视频上传功能需要连接后端服务，请确保后端已启动（localhost:7071）</p>
+      <p v-if="!isEditMode" class="upload-hint">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--bili-pink)" style="flex-shrink:0">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        视频上传功能需要连接后端服务，请确保后端已启动（localhost:7071）
+      </p>
 
       <div v-if="pageLoading" class="loading-spinner">加载视频信息中...</div>
 
@@ -14,14 +22,16 @@
         @dragover.prevent
         @drop.prevent="onDrop"
       >
-        <svg viewBox="0 0 24 24" width="48" height="48" fill="var(--bili-pink)">
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        </svg>
-        <p v-if="hasUploadedVideos">
-          已上传 {{ completedCount }} 个视频，点击或拖拽继续添加
+        <div class="upload-icon-wrap">
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="var(--bili-pink)">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+        </div>
+        <p v-if="hasUploadedVideos" class="upload-text">
+          已上传 <strong>{{ completedCount }}</strong> 个视频，点击或拖拽继续添加
         </p>
-        <p v-else>点击或拖拽视频文件到此处上传（可多选）</p>
-        <p class="sub">支持 MP4、FLV 等常见格式，最多 {{ maxVideoCount }} 个分P，单个不超过 {{ maxVideoSizeMb }}MB</p>
+        <p v-else class="upload-text">点击或拖拽视频文件到此处上传（可多选）</p>
+        <p class="upload-sub">支持 MP4、FLV 等常见格式，最多 {{ maxVideoCount }} 个分P，单个不超过 {{ maxVideoSizeMb }}MB</p>
         <input
           ref="fileInput"
           type="file"
@@ -91,7 +101,10 @@
         </div>
         <p v-else class="form-tip">请先上传至少 1 个视频，再填写投稿信息</p>
 
-        <h2>{{ isEditMode ? '修改视频信息' : '填写视频信息' }}</h2>
+        <h2 class="form-section-title">
+          <span class="form-section-icon">📝</span>
+          {{ isEditMode ? '修改视频信息' : '填写视频信息' }}
+        </h2>
 
         <fieldset class="form-fieldset" :disabled="!formEditable || pageLoading">
         <div class="form-row cover-row">
@@ -100,8 +113,14 @@
             <input ref="coverInput" type="file" accept="image/*" hidden @change="onCoverSelect" />
             <div class="cover-box" @click="triggerCover">
               <img v-if="coverPreview" :src="coverPreview" alt="" />
-              <div v-else-if="coverUploading" class="cover-placeholder">上传中...</div>
-              <div v-else class="cover-placeholder">点击选择封面</div>
+              <div v-else-if="coverUploading" class="cover-placeholder">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--bili-text-tertiary)"><path d="M19 8H5c-1.1 0-2 .9-2 2v6h2v-6h14v6h2v-6c0-1.1-.9-2-2-2zm-3-4H8c-1.1 0-2 .9-2 2v2h2V6h6v2h2V6c0-1.1-.9-2-2-2z"/></svg>
+                上传中...
+              </div>
+              <div v-else class="cover-placeholder">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="var(--bili-text-tertiary)"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 11l4.5 6H5l3.5-4.5z"/></svg>
+                点击选择封面
+              </div>
             </div>
           </div>
           <div class="form-item grow">
@@ -782,28 +801,44 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .upload-page {
-  padding: 20px 0 40px;
+  padding: 24px 0 60px;
+}
+
+.page-header {
+  margin-bottom: 28px;
 }
 
 .page-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 24px;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--bili-text);
+}
+
+.page-desc {
+  font-size: 14px;
+  color: var(--bili-text-tertiary);
 }
 
 .upload-card {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 32px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-xl);
+  padding: 36px;
+  box-shadow: var(--bili-shadow-md);
 }
 
 .upload-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 12px 16px;
-  background: rgba(251, 114, 153, 0.08);
-  border-radius: 8px;
+  background: var(--bili-pink-light);
+  border-radius: var(--bili-radius);
   color: var(--bili-pink);
   font-size: 13px;
+  font-weight: 500;
   margin-bottom: 24px;
+  border: 1px solid rgba(129, 140, 248, 0.2);
 }
 
 .upload-area {
@@ -811,35 +846,52 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px;
+  padding: 64px 40px;
   border: 2px dashed var(--bili-border);
-  border-radius: 12px;
+  border-radius: var(--bili-radius-xl);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition: all var(--bili-transition);
+  background: var(--bili-border-light);
 
   &:hover {
     border-color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.04);
+    background: var(--bili-pink-light);
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.08);
   }
 
   &.done {
     padding: 28px;
     border-style: solid;
-    border-color: rgba(251, 114, 153, 0.35);
-    background: rgba(251, 114, 153, 0.04);
+    border-color: rgba(129, 140, 248, 0.35);
+    background: var(--bili-pink-light);
   }
+}
 
-  p {
-    margin-top: 16px;
-    font-size: 15px;
-    color: var(--bili-text);
-  }
+.upload-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--bili-pink-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
 
-  .sub {
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--bili-text-tertiary);
+.upload-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--bili-text);
+
+  strong {
+    color: var(--bili-pink);
   }
+}
+
+.upload-sub {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--bili-text-tertiary);
 }
 
 .upload-progress {
@@ -857,28 +909,34 @@ onUnmounted(() => {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .video-upload-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid var(--bili-border);
-  border-radius: 10px;
-  background: #fafbfc;
+  border-radius: var(--bili-radius-lg);
+  background: var(--bili-border-light);
+  transition: all var(--bili-transition-fast);
+
+  &:hover {
+    border-color: rgba(129, 140, 248, 0.35);
+    background: var(--bili-pink-light);
+  }
 }
 
 .p-index {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(251, 114, 153, 0.12);
-  color: var(--bili-pink);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--bili-radius);
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  color: #fff;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -891,6 +949,7 @@ onUnmounted(() => {
 
 .item-name {
   font-size: 14px;
+  font-weight: 500;
   color: var(--bili-text);
   white-space: nowrap;
   overflow: hidden;
@@ -912,69 +971,81 @@ onUnmounted(() => {
   flex-shrink: 0;
   font-size: 12px;
   color: var(--bili-text-tertiary);
+  font-weight: 500;
 }
 
 .item-status {
   margin-top: 6px;
   font-size: 12px;
+  font-weight: 500;
   color: var(--bili-text-tertiary);
 
   &.done {
-    color: #00b578;
+    color: var(--bili-success);
   }
 
   &.error {
-    color: #f53f3f;
+    color: var(--bili-danger);
   }
 }
 
 .item-delete {
   flex-shrink: 0;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 13px;
-  color: #f53f3f;
-  border-color: rgba(245, 63, 63, 0.35);
+  font-weight: 500;
+  color: var(--bili-danger);
+  border-color: rgba(248, 113, 113, 0.3);
 
   &:hover:not(:disabled) {
-    background: rgba(245, 63, 63, 0.06);
-    border-color: #f53f3f;
+    background: rgba(248, 113, 113, 0.1);
+    border-color: var(--bili-danger);
   }
 }
 
 .error-msg {
   margin-top: 16px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: rgba(245, 63, 63, 0.08);
-  border: 1px solid rgba(245, 63, 63, 0.22);
-  color: #f53f3f;
+  padding: 12px 16px;
+  border-radius: var(--bili-radius);
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  color: var(--bili-danger);
   font-size: 13px;
+  font-weight: 500;
 }
 
 .progress-bar {
   height: 6px;
-  background: #f1f2f3;
+  background: var(--bili-border-light);
   border-radius: 3px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--bili-pink);
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
   border-radius: 3px;
   transition: width 0.3s;
 }
 
 .publish-form {
-  margin-top: 28px;
-  padding-top: 28px;
+  margin-top: 32px;
+  padding-top: 32px;
   border-top: 1px solid var(--bili-border);
+}
 
-  h2 {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 20px 0;
-  }
+.form-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bili-text);
+}
+
+.form-section-icon {
+  font-size: 18px;
 }
 
 .form-tip {
@@ -988,16 +1059,17 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 14px;
-  background: #f6f7f8;
-  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--bili-border-light);
+  border-radius: var(--bili-radius-lg);
   font-size: 13px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
 }
 
 .form-row {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
@@ -1011,17 +1083,18 @@ onUnmounted(() => {
 }
 
 .form-item {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 
   label {
     display: block;
     font-size: 14px;
+    font-weight: 500;
     margin-bottom: 8px;
     color: var(--bili-text-secondary);
   }
 
   .req {
-    color: #f53f3f;
+    color: var(--bili-danger);
     margin-right: 2px;
   }
 
@@ -1030,14 +1103,20 @@ onUnmounted(() => {
   .select {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid var(--bili-border);
-    border-radius: 8px;
+    border: 1.5px solid var(--bili-border);
+    border-radius: var(--bili-radius);
     font-size: 14px;
-    background: #fff;
+    background: var(--bili-white);
+    transition: all var(--bili-transition);
 
     &:focus {
       outline: none;
       border-color: var(--bili-pink);
+      box-shadow: 0 0 0 3px var(--bili-pink-light);
+    }
+
+    &::placeholder {
+      color: var(--bili-text-tertiary);
     }
   }
 
@@ -1048,13 +1127,19 @@ onUnmounted(() => {
 }
 
 .cover-box {
-  width: 220px;
+  width: 240px;
   aspect-ratio: 16 / 9;
-  border: 1px dashed var(--bili-border);
-  border-radius: 12px;
+  border: 2px dashed var(--bili-border);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
   cursor: pointer;
-  background: #f6f7f8;
+  background: var(--bili-border-light);
+  transition: all var(--bili-transition);
+
+  &:hover {
+    border-color: var(--bili-pink);
+    background: var(--bili-pink-light);
+  }
 
   img {
     width: 100%;
@@ -1068,27 +1153,36 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   color: var(--bili-text-tertiary);
   font-size: 13px;
+  font-weight: 500;
 }
 
 .radio-group,
 .check-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
 }
 
 .radio,
 .check {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 14px;
   color: var(--bili-text);
   cursor: pointer;
+  font-weight: 500;
+  transition: color var(--bili-transition-fast);
+
+  &:hover {
+    color: var(--bili-pink);
+  }
 }
 
 .tag-box {
@@ -1096,11 +1190,17 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  min-height: 42px;
-  padding: 6px 10px;
-  border: 1px solid var(--bili-border);
-  border-radius: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--bili-border);
+  border-radius: var(--bili-radius);
   cursor: text;
+  transition: all var(--bili-transition);
+
+  &:focus-within {
+    border-color: var(--bili-pink);
+    box-shadow: 0 0 0 3px var(--bili-pink-light);
+  }
 
   input {
     flex: 1;
@@ -1116,11 +1216,17 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
-  background: rgba(251, 114, 153, 0.1);
+  background: var(--bili-pink-light);
   color: var(--bili-pink);
   font-size: 13px;
+  font-weight: 500;
+  transition: all var(--bili-transition-fast);
+
+  &:hover {
+    background: rgba(129, 140, 248, 0.18);
+  }
 }
 
 .tag-remove {
@@ -1130,6 +1236,11 @@ onUnmounted(() => {
   border-radius: 50%;
   color: inherit;
   font-size: 14px;
+  transition: background var(--bili-transition-fast);
+
+  &:hover {
+    background: rgba(129, 140, 248, 0.2);
+  }
 }
 
 .field-hint {
@@ -1145,7 +1256,7 @@ onUnmounted(() => {
 .form-actions {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
 .form-fieldset {
@@ -1155,22 +1266,23 @@ onUnmounted(() => {
   min-width: 0;
 
   &:disabled {
-    opacity: 0.72;
+    opacity: 0.6;
     pointer-events: none;
   }
 }
 
 .delete-btn {
-  color: #f53f3f;
-  border-color: rgba(245, 63, 63, 0.35);
+  color: var(--bili-danger);
+  border-color: rgba(248, 113, 113, 0.3);
+  font-weight: 500;
 
   &:hover:not(:disabled) {
-    background: rgba(245, 63, 63, 0.06);
-    border-color: #f53f3f;
+    background: rgba(248, 113, 113, 0.1);
+    border-color: var(--bili-danger);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 }

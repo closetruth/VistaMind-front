@@ -211,7 +211,7 @@ onMounted(async () => {
   flex-direction: column;
   gap: 6px;
   padding: 16px;
-  background: #fff;
+  background: var(--bili-white);
   border: 1px solid transparent;
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);
@@ -254,7 +254,7 @@ onMounted(async () => {
 }
 
 .week-panel {
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   padding: 20px;
   box-shadow: var(--bili-shadow);

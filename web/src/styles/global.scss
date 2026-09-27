@@ -7,23 +7,38 @@
 }
 
 :root {
-  --bili-pink: #fb7299;
-  --bili-pink-hover: #fc8bab;
-  --bili-blue: #00aeec;
-  --bili-text: #18191c;
-  --bili-text-secondary: #61666d;
-  --bili-text-tertiary: #9499a0;
-  --bili-border: #e3e5e7;
-  --bili-bg: #f1f2f3;
-  --bili-white: #fff;
+  --bili-pink: #818cf8;
+  --bili-pink-hover: #a5b4fc;
+  --bili-pink-light: rgba(129, 140, 248, 0.1);
+  --bili-pink-glow: rgba(129, 140, 248, 0.3);
+  --bili-blue: #38bdf8;
+  --bili-blue-light: rgba(56, 189, 248, 0.1);
+  --bili-text: #e4e5e9;
+  --bili-text-secondary: #9ca0b0;
+  --bili-text-tertiary: #6b7084;
+  --bili-border: #2a2d3a;
+  --bili-border-light: #1e2130;
+  --bili-bg: #0f1117;
+  --bili-white: #1a1d27;
+  --bili-success: #34d399;
+  --bili-danger: #f87171;
+  --bili-warning: #fbbf24;
   --bili-header-height: 64px;
   --bili-nav-height: 44px;
-  --bili-radius: 6px;
-  --bili-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --bili-radius: 8px;
+  --bili-radius-lg: 12px;
+  --bili-radius-xl: 16px;
+  --bili-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  --bili-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --bili-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --bili-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --bili-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --bili-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -33,6 +48,7 @@ body {
   background: var(--bili-bg);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -48,7 +64,8 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-family: inherit;
   outline: none;
 }
@@ -66,28 +83,39 @@ ol {
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  gap: 6px;
+  padding: 0 24px;
   height: 40px;
-  border-radius: 8px;
-  background: var(--bili-pink);
+  border-radius: var(--bili-radius);
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
   color: #fff;
   font-size: 14px;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: all var(--bili-transition);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 
-  &:hover {
-    background: var(--bili-pink-hover);
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #818cf8 0%, #a5b4fc 100%);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.25);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    box-shadow: none;
   }
 }
 
@@ -95,18 +123,26 @@ ol {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  gap: 6px;
+  padding: 0 24px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: var(--bili-radius);
   border: 1px solid var(--bili-border);
   background: var(--bili-white);
   color: var(--bili-text);
   font-size: 14px;
-  transition: border-color 0.2s, color 0.2s;
+  font-weight: 500;
+  transition: all var(--bili-transition);
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--bili-pink);
     color: var(--bili-pink);
+    background: var(--bili-pink-light);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 
@@ -122,16 +158,36 @@ ol {
     width: 24px;
     height: 24px;
     margin-left: 8px;
-    border: 2px solid var(--bili-border);
+    border: 2.5px solid var(--bili-border);
     border-top-color: var(--bili-pink);
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin 0.7s linear infinite;
   }
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
 

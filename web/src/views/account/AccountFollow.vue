@@ -214,7 +214,7 @@ onMounted(() => loadList(true))
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);
 }
@@ -232,7 +232,7 @@ onMounted(() => loadList(true))
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  background: #f1f2f3;
+  background: var(--bili-border-light);
   flex-shrink: 0;
 }
 

@@ -154,7 +154,7 @@ onMounted(() => loadHistory(true))
   align-items: center;
   gap: 16px;
   padding: 12px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   transition: box-shadow 0.2s;
 
@@ -199,7 +199,7 @@ onMounted(() => loadHistory(true))
   flex-shrink: 0;
 
   &:hover {
-    background: #f6f7f8;
+    background: var(--bili-border-light);
     color: var(--bili-pink);
   }
 }

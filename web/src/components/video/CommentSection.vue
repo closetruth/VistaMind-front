@@ -546,9 +546,10 @@ onMounted(() => loadComments(true))
 
 <style scoped lang="scss">
 .comment-section {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 20px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  padding: 24px;
+  box-shadow: var(--bili-shadow);
 }
 
 .comment-header {
@@ -559,7 +560,8 @@ onMounted(() => loadComments(true))
 
   h3 {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--bili-text);
 
     .count {
       font-size: 14px;
@@ -571,17 +573,27 @@ onMounted(() => loadComments(true))
 
 .order-tabs {
   display: flex;
-  gap: 16px;
+  gap: 4px;
+  background: var(--bili-border-light);
+  border-radius: var(--bili-radius);
+  padding: 3px;
 
   button {
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--bili-text-tertiary);
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
+    padding: 5px 14px;
+    border-radius: 6px;
+    transition: all var(--bili-transition-fast);
 
     &.active {
       color: var(--bili-pink);
-      border-bottom-color: var(--bili-pink);
+      background: var(--bili-white);
+      box-shadow: var(--bili-shadow);
+    }
+
+    &:hover:not(.active) {
+      color: var(--bili-text-secondary);
     }
   }
 }
@@ -598,7 +610,7 @@ onMounted(() => loadComments(true))
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: #f1f2f3;
+  background: var(--bili-border-light);
 
   &.small {
     width: 32px;
@@ -611,15 +623,18 @@ onMounted(() => loadComments(true))
 
   textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid var(--bili-border);
-    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--bili-border);
+    border-radius: var(--bili-radius);
     resize: vertical;
     font-size: 14px;
-    transition: border-color 0.2s;
+    background: var(--bili-white);
+    transition: all var(--bili-transition);
 
     &:focus {
       border-color: var(--bili-pink);
+      box-shadow: 0 0 0 3px var(--bili-pink-light);
+      outline: none;
     }
   }
 }
@@ -629,30 +644,33 @@ onMounted(() => loadComments(true))
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .login-tip {
   padding: 16px;
   margin-bottom: 20px;
-  background: #f6f7f8;
-  border-radius: 8px;
+  background: var(--bili-border-light);
+  border-radius: var(--bili-radius);
   text-align: center;
   color: var(--bili-text-secondary);
+  font-size: 14px;
 
   button {
     color: var(--bili-pink);
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 
 .error-tip {
   margin-bottom: 16px;
-  padding: 10px 12px;
-  border-radius: 6px;
-  background: #fff7e6;
+  padding: 12px 14px;
+  border-radius: var(--bili-radius);
+  background: rgba(230, 162, 60, 0.08);
+  border: 1px solid rgba(230, 162, 60, 0.2);
   color: #d48806;
   font-size: 13px;
+  font-weight: 500;
 }
 
 .comment-list {
@@ -675,24 +693,26 @@ onMounted(() => loadComments(true))
 
 .nickname {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--bili-text-secondary);
 }
 
 .top-tag {
-  padding: 1px 6px;
+  padding: 2px 8px;
   border-radius: 4px;
-  background: var(--bili-pink);
-  color: #fff;
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  color: var(--bili-white);
   font-size: 11px;
+  font-weight: 600;
 }
 
 .comment-content {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 8px;
   white-space: pre-wrap;
   word-break: break-word;
+  color: var(--bili-text);
 }
 
 .comment-meta {
@@ -708,7 +728,8 @@ onMounted(() => loadComments(true))
   align-items: center;
   gap: 4px;
   color: var(--bili-text-tertiary);
-  transition: color 0.2s;
+  font-weight: 500;
+  transition: color var(--bili-transition-fast);
 
   &:hover,
   &.active {
@@ -716,7 +737,7 @@ onMounted(() => loadComments(true))
   }
 
   &.danger:hover {
-    color: #f56c6c;
+    color: var(--bili-danger);
   }
 }
 
@@ -725,18 +746,25 @@ onMounted(() => loadComments(true))
 
   textarea {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--bili-border);
-    border-radius: 6px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--bili-border);
+    border-radius: var(--bili-radius);
     font-size: 13px;
+    transition: all var(--bili-transition);
+
+    &:focus {
+      border-color: var(--bili-pink);
+      box-shadow: 0 0 0 3px var(--bili-pink-light);
+      outline: none;
+    }
   }
 }
 
 .reply-list {
   margin-top: 12px;
-  padding: 12px;
-  background: #f6f7f8;
-  border-radius: 8px;
+  padding: 14px;
+  background: var(--bili-border-light);
+  border-radius: var(--bili-radius);
 }
 
 .reply-item {
@@ -750,13 +778,14 @@ onMounted(() => loadComments(true))
 }
 
 .reply-to {
-  color: var(--bili-blue, #00a1d6);
+  color: var(--bili-blue, #38bdf8);
   font-size: 13px;
+  font-weight: 500;
 }
 
 .empty-tip {
   text-align: center;
-  padding: 32px 0;
+  padding: 40px 0;
   color: var(--bili-text-tertiary);
   font-size: 14px;
 }

@@ -624,7 +624,7 @@ onUnmounted(stopOnlineReport)
 
 .video-main {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 350px;
   gap: 24px;
   align-items: start;
 }
@@ -639,9 +639,10 @@ onUnmounted(stopOnlineReport)
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 12px;
-  background: #fff;
-  border-radius: var(--bili-radius);
+  padding: 14px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  box-shadow: var(--bili-shadow);
 }
 
 .ep-btn {
@@ -649,20 +650,23 @@ onUnmounted(stopOnlineReport)
   align-items: center;
   gap: 6px;
   max-width: 100%;
-  padding: 6px 14px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: var(--bili-radius);
   font-size: 13px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
-  background: #f6f7f8;
-  transition: all 0.2s;
+  background: var(--bili-border-light);
+  transition: all var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-pink);
+    background: var(--bili-pink-light);
   }
 
   &.active {
-    background: var(--bili-pink);
-    color: #fff;
+    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    color: var(--bili-white);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
 
     .ep-duration {
       color: rgba(255, 255, 255, 0.85);
@@ -671,7 +675,7 @@ onUnmounted(stopOnlineReport)
 }
 
 .ep-label {
-  font-weight: 600;
+  font-weight: 700;
   flex-shrink: 0;
 }
 
@@ -688,22 +692,25 @@ onUnmounted(stopOnlineReport)
 }
 
 .video-info-bar {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 20px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  padding: 24px;
+  box-shadow: var(--bili-shadow);
 }
 
 .video-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   line-height: 1.4;
   margin-bottom: 12px;
+  color: var(--bili-text);
 }
 
 .video-stats {
   display: flex;
   gap: 20px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--bili-text-tertiary);
   margin-bottom: 16px;
 
@@ -715,47 +722,54 @@ onUnmounted(stopOnlineReport)
 
   .online-count {
     color: var(--bili-pink);
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 
 .video-desc {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 16px 20px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  padding: 20px 24px;
+  box-shadow: var(--bili-shadow);
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .tag {
   font-size: 13px;
+  font-weight: 500;
   color: var(--bili-pink);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bili-pink-light);
 }
 
 .intro {
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--bili-text-secondary);
   white-space: pre-wrap;
 }
 
 .comment-closed {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 32px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  padding: 40px;
   text-align: center;
   color: var(--bili-text-tertiary);
+  font-size: 14px;
+  box-shadow: var(--bili-shadow);
 }
 
 .action-bar {
   display: flex;
-  gap: 24px;
-  padding-top: 16px;
+  gap: 32px;
+  padding-top: 18px;
   border-top: 1px solid var(--bili-border);
 }
 
@@ -766,16 +780,21 @@ onUnmounted(stopOnlineReport)
   gap: 4px;
   color: var(--bili-text-secondary);
   font-size: 12px;
-  transition: color 0.2s;
+  font-weight: 500;
+  transition: all var(--bili-transition-fast);
 
-  &:hover:not(:disabled),
+  &:hover:not(:disabled) {
+    color: var(--bili-pink);
+    transform: translateY(-1px);
+  }
+
   &.active {
     color: var(--bili-pink);
   }
 
   &.disabled,
   &:disabled {
-    opacity: 0.45;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 }
@@ -787,41 +806,51 @@ onUnmounted(stopOnlineReport)
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
 }
 
 .coin-dialog {
   position: relative;
-  width: min(360px, calc(100vw - 32px));
-  padding: 24px;
-  border-radius: var(--bili-radius);
-  background: #fff;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  width: min(380px, calc(100vw - 32px));
+  padding: 28px;
+  border-radius: var(--bili-radius-xl);
+  background: var(--bili-white);
+  box-shadow: var(--bili-shadow-lg);
 }
 
 .coin-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border: none;
-  background: transparent;
+  background: var(--bili-border-light);
+  border-radius: 50%;
   color: var(--bili-text-tertiary);
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1;
   cursor: pointer;
+  transition: all var(--bili-transition-fast);
+
+  &:hover {
+    background: var(--bili-pink-light);
+    color: var(--bili-pink);
+  }
 }
 
 .coin-title {
   margin: 0 0 8px;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--bili-text);
 }
 
 .coin-balance {
   margin: 0 0 20px;
   font-size: 14px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
 }
 
@@ -829,6 +858,7 @@ onUnmounted(stopOnlineReport)
   margin: -12px 0 16px;
   font-size: 13px;
   color: #e6a23c;
+  font-weight: 500;
 }
 
 .coin-options {
@@ -839,35 +869,38 @@ onUnmounted(stopOnlineReport)
 }
 
 .coin-option {
-  height: 44px;
-  border: 1px solid var(--bili-border);
-  border-radius: 8px;
-  background: #fff;
+  height: 48px;
+  border: 1.5px solid var(--bili-border);
+  border-radius: var(--bili-radius);
+  background: var(--bili-white);
   color: var(--bili-text);
   font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--bili-transition-fast);
 
   &.active {
     border-color: var(--bili-pink);
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.08);
+    background: var(--bili-pink-light);
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.12);
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
   }
 }
 
 .coin-submit {
   width: 100%;
-  height: 40px;
+  height: 44px;
+  font-size: 15px;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
 .fade-enter-from,
@@ -885,25 +918,28 @@ onUnmounted(stopOnlineReport)
 
 .uploader-card,
 .recommend-card {
-  background: #fff;
-  border-radius: var(--bili-radius);
-  padding: 16px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  padding: 20px;
+  box-shadow: var(--bili-shadow);
 }
 
 .uploader-info {
   display: flex;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 
   .avatar {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid var(--bili-border-light);
   }
 
   .nickname {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 15px;
     margin-bottom: 4px;
   }
 
@@ -914,46 +950,57 @@ onUnmounted(stopOnlineReport)
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
   }
 }
 
 .follow-btn {
   width: 100%;
-  height: 36px;
+  height: 38px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .recommend-card h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--bili-text);
 }
 
 .recommend-item {
   display: flex;
   gap: 10px;
-  padding: 8px 0;
+  padding: 10px 0;
+  transition: all var(--bili-transition-fast);
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--bili-border);
   }
 
   img {
-    width: 120px;
-    height: 68px;
-    border-radius: 4px;
+    width: 128px;
+    height: 72px;
+    border-radius: var(--bili-radius);
     object-fit: cover;
     flex-shrink: 0;
+    transition: transform var(--bili-transition);
+  }
+
+  &:hover img {
+    transform: scale(1.04);
   }
 
   .title {
     font-size: 13px;
+    font-weight: 500;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 4px;
-    transition: color 0.2s;
+    transition: color var(--bili-transition-fast);
   }
 
   &:hover .title {

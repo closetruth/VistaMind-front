@@ -167,8 +167,9 @@ defineExpose({ videoRef, currentTime, resetDanmuSending: () => { sendingDanmu.va
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
-  border-radius: var(--bili-radius);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
 .video-element {
@@ -217,8 +218,9 @@ defineExpose({ videoRef, currentTime, resetDanmuSending: () => { sendingDanmu.va
     height: 36px;
     padding: 0 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--bili-radius);
     background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
     color: #fff;
     font-size: 14px;
 
@@ -231,6 +233,7 @@ defineExpose({ videoRef, currentTime, resetDanmuSending: () => { sendingDanmu.va
     height: 36px;
     padding: 0 16px;
     font-size: 13px;
+    font-weight: 500;
   }
 }
 </style>

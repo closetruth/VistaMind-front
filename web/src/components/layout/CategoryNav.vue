@@ -64,8 +64,9 @@ onMounted(async () => {
 }
 
 .category-nav {
-  background: #fff;
+  background: var(--bili-white);
   border-bottom: 1px solid var(--bili-border);
+  box-shadow: var(--bili-shadow);
 }
 
 .nav-inner {
@@ -94,43 +95,49 @@ onMounted(async () => {
   align-items: center;
   gap: 6px;
   padding: 6px 16px;
-  border-radius: 6px;
+  border-radius: var(--bili-radius);
   font-size: 14px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
   white-space: nowrap;
-  transition: color 0.2s, background 0.2s;
+  transition: all var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.06);
+    background: var(--bili-pink-light);
   }
 
   &.active {
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.1);
-    font-weight: 500;
+    background: var(--bili-pink-light);
+    font-weight: 600;
+  }
+
+  .cat-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
   }
 }
 
-.cat-icon {
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-  border-radius: 4px;
+.nav-more {
+  flex-shrink: 0;
 }
 
 .more-btn {
-  width: 28px;
-  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--bili-radius);
   color: var(--bili-text-tertiary);
+  transition: all var(--bili-transition-fast);
 
   &:hover {
-    background: #f6f7f8;
-    color: var(--bili-text);
+    color: var(--bili-pink);
+    background: var(--bili-pink-light);
   }
 }
 </style>

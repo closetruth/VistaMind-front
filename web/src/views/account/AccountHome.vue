@@ -107,7 +107,7 @@ onMounted(loadData)
 }
 
 .stat-item {
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   padding: 20px;
   text-align: center;
@@ -149,7 +149,7 @@ onMounted(loadData)
   align-items: center;
   gap: 8px;
   padding: 20px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);
   font-size: 14px;
@@ -166,7 +166,7 @@ onMounted(loadData)
 }
 
 .section {
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   padding: 20px;
   box-shadow: var(--bili-shadow);

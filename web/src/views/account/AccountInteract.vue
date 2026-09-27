@@ -295,7 +295,7 @@ onMounted(async () => {
     border-radius: 6px;
     font-size: 13px;
     color: var(--bili-text-secondary);
-    background: #f6f7f8;
+    background: var(--bili-border-light);
 
     &.active {
       background: rgba(251, 114, 153, 0.1);
@@ -314,7 +314,7 @@ onMounted(async () => {
   border: 1px solid var(--bili-border);
   border-radius: 6px;
   font-size: 13px;
-  background: #fff;
+  background: var(--bili-white);
 }
 
 .item-list {
@@ -328,7 +328,7 @@ onMounted(async () => {
   align-items: flex-start;
   gap: 12px;
   padding: 12px 14px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);
 }
@@ -339,7 +339,7 @@ onMounted(async () => {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  background: #eee;
+  background: var(--bili-border-light);
 }
 
 .item-main {

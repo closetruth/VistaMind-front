@@ -278,7 +278,7 @@ onMounted(() => {
   border-radius: 6px;
   font-size: 13px;
   color: var(--bili-text-secondary);
-  background: #f6f7f8;
+  background: var(--bili-border-light);
 
   &.active {
     background: rgba(251, 114, 153, 0.1);
@@ -312,7 +312,7 @@ onMounted(() => {
   display: flex;
   gap: 16px;
   padding: 12px;
-  background: #fff;
+  background: var(--bili-white);
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);
 }
@@ -326,7 +326,7 @@ onMounted(() => {
     height: 90px;
     border-radius: 6px;
     object-fit: cover;
-    background: #e3e5e7;
+    background: var(--bili-border-light);
   }
 }
 

@@ -56,82 +56,87 @@ const menuItems = computed(() => [
 <style scoped lang="scss">
 .account-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 20px;
-  padding: 20px 20px 40px;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  padding: 24px 24px 60px;
   align-items: start;
 }
 
 .account-sidebar {
   position: sticky;
   top: calc(var(--bili-header-height) + 16px);
-  background: #fff;
-  border-radius: var(--bili-radius);
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
-  box-shadow: var(--bili-shadow);
+  box-shadow: var(--bili-shadow-md);
 }
 
 .user-card {
-  padding: 24px 16px;
+  padding: 28px 20px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(251, 114, 153, 0.08) 0%, #fff 100%);
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.12) 0%, var(--bili-white) 100%);
   border-bottom: 1px solid var(--bili-border);
 
   .avatar {
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto 10px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 12px;
+    border: 3px solid var(--bili-white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .nickname {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
     margin-bottom: 8px;
+    color: var(--bili-text);
   }
 
   .space-link {
     font-size: 12px;
+    font-weight: 500;
     color: var(--bili-pink);
+    transition: opacity var(--bili-transition-fast);
 
     &:hover {
-      text-decoration: underline;
+      opacity: 0.8;
     }
   }
 }
 
 .side-nav {
-  padding: 8px;
+  padding: 10px;
 }
 
 .side-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  border-radius: 8px;
+  padding: 12px 16px;
+  border-radius: var(--bili-radius);
   font-size: 14px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
-  margin-bottom: 4px;
-  transition: all 0.2s;
+  margin-bottom: 2px;
+  transition: all var(--bili-transition-fast);
 
   &:hover {
-    background: rgba(251, 114, 153, 0.06);
+    background: var(--bili-pink-light);
     color: var(--bili-pink);
   }
 
   &.active {
-    background: rgba(251, 114, 153, 0.1);
+    background: var(--bili-pink-light);
     color: var(--bili-pink);
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .icon {
     width: 20px;
     text-align: center;
+    font-size: 15px;
   }
 
   .badge {
@@ -141,8 +146,9 @@ const menuItems = computed(() => [
     padding: 0 5px;
     border-radius: 9px;
     background: var(--bili-pink);
-    color: #fff;
+    color: var(--bili-white);
     font-size: 11px;
+    font-weight: 600;
     line-height: 18px;
     text-align: center;
   }
@@ -153,9 +159,10 @@ const menuItems = computed(() => [
 }
 
 .page-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   margin-bottom: 20px;
+  color: var(--bili-text);
 }
 
 @media (max-width: 768px) {

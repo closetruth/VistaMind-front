@@ -3,7 +3,13 @@
     <div class="header-inner container">
       <router-link to="/" class="logo">
         <svg class="logo-icon" viewBox="0 0 48 48" fill="none">
-          <rect width="48" height="48" rx="10" fill="#FB7299"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#818cf8"/>
+            </linearGradient>
+          </defs>
+          <rect width="48" height="48" rx="12" fill="url(#logoGrad)"/>
           <text x="24" y="33" text-anchor="middle" fill="white" font-size="22" font-weight="bold">V</text>
         </svg>
         <span class="logo-text">VistaMind</span>
@@ -14,7 +20,7 @@
           <input
             v-model="keyword"
             type="text"
-            placeholder="搜索视频、UP主"
+            placeholder="搜索视频、UP主..."
             class="search-input"
             @focus="onSearchFocus"
           />
@@ -25,7 +31,12 @@
           </button>
         </form>
         <div v-if="showSuggest && hotKeywords.length" class="search-suggest">
-          <div class="suggest-title">VistaMind热搜</div>
+          <div class="suggest-title">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--bili-pink)" style="margin-right:4px">
+              <path d="M13 1L3 14h7l-2 9 10-13h-7l2-9z"/>
+            </svg>
+            VistaMind 热搜
+          </div>
           <div
             v-for="(item, index) in hotKeywords"
             :key="index"
@@ -40,7 +51,7 @@
 
       <nav class="header-nav">
         <router-link v-if="userStore.isLoggedIn" to="/upload" class="nav-item upload-btn">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
           </svg>
           <span>投稿</span>
@@ -64,11 +75,32 @@
             <img :src="avatarUrl" :alt="userStore.userInfo.nickName" />
           </router-link>
           <div class="user-dropdown">
-            <router-link to="/account/home" class="dropdown-item">个人中心</router-link>
-            <router-link to="/account/videos" class="dropdown-item">我的投稿</router-link>
-            <router-link to="/account/collection" class="dropdown-item">我的收藏</router-link>
-            <router-link to="/account/settings" class="dropdown-item">账号设置</router-link>
-            <button class="dropdown-item" @click="handleLogout">退出登录</button>
+            <div class="dropdown-header">
+              <img :src="avatarUrl" class="dropdown-avatar" alt="" />
+              <span class="dropdown-name">{{ userStore.userInfo.nickName }}</span>
+            </div>
+            <div class="dropdown-divider"></div>
+            <router-link to="/account/home" class="dropdown-item">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              个人中心
+            </router-link>
+            <router-link to="/account/videos" class="dropdown-item">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              我的投稿
+            </router-link>
+            <router-link to="/account/collection" class="dropdown-item">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+              我的收藏
+            </router-link>
+            <router-link to="/account/settings" class="dropdown-item">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+              账号设置
+            </router-link>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item logout" @click="handleLogout">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+              退出登录
+            </button>
           </div>
         </div>
 
@@ -121,7 +153,6 @@ async function loadHotKeywords() {
   try {
     const res = await videoApi.getSearchKeywordTop()
     const words = normalizeHotList(res.data)
-    // Redis 尚无统计时为空，用本地词占位；有数据则以接口为准
     hotKeywords.value = words.length ? words : FALLBACK_HOT
   } catch {
     if (!hotKeywords.value.length) hotKeywords.value = FALLBACK_HOT
@@ -170,14 +201,15 @@ onUnmounted(() => {
   top: 0;
   z-index: 100;
   height: var(--bili-header-height);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 17, 23, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all var(--bili-transition);
 
   &.scrolled {
     border-bottom-color: var(--bili-border);
-    box-shadow: var(--bili-shadow);
+    box-shadow: var(--bili-shadow-md);
   }
 }
 
@@ -191,39 +223,51 @@ onUnmounted(() => {
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
+  transition: transform var(--bili-transition-fast);
+
+  &:hover {
+    transform: scale(1.03);
+  }
 
   .logo-icon {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
+    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.35));
   }
 
   .logo-text {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--bili-pink);
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
 .search-box {
   flex: 1;
-  max-width: 500px;
+  max-width: 520px;
   position: relative;
 }
 
 .search-form {
   display: flex;
   height: 40px;
-  border: 1px solid var(--bili-border);
-  border-radius: 8px;
+  border: 1.5px solid var(--bili-border);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
-  background: #f1f2f3;
-  transition: border-color 0.2s, background 0.2s;
+  background: var(--bili-bg);
+  transition: all var(--bili-transition);
 
   &:focus-within {
     border-color: var(--bili-pink);
-    background: #fff;
+    background: var(--bili-white);
+    box-shadow: 0 0 0 3px var(--bili-pink-light);
   }
 }
 
@@ -236,12 +280,12 @@ onUnmounted(() => {
 }
 
 .search-btn {
-  width: 48px;
+  width: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--bili-text-secondary);
-  transition: color 0.2s;
+  color: var(--bili-text-tertiary);
+  transition: all var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-pink);
@@ -253,17 +297,21 @@ onUnmounted(() => {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  box-shadow: var(--bili-shadow-lg);
   padding: 12px 0;
   z-index: 200;
+  animation: fadeInUp 0.2s ease;
 }
 
 .suggest-title {
+  display: flex;
+  align-items: center;
   padding: 4px 16px 8px;
   font-size: 12px;
-  color: var(--bili-text-tertiary);
+  font-weight: 500;
+  color: var(--bili-text-secondary);
 }
 
 .suggest-item {
@@ -272,21 +320,28 @@ onUnmounted(() => {
   gap: 12px;
   padding: 8px 16px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--bili-transition-fast);
 
   &:hover {
-    background: #f6f7f8;
+    background: var(--bili-pink-light);
   }
 
   .rank {
-    width: 18px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     font-size: 12px;
+    font-weight: 500;
     color: var(--bili-text-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
 
     &.top {
-      color: var(--bili-pink);
-      font-weight: 600;
+      color: var(--bili-white);
+      background: var(--bili-pink);
+      border-radius: 4px;
     }
   }
 }
@@ -307,31 +362,36 @@ onUnmounted(() => {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: var(--bili-radius);
   color: var(--bili-text-secondary);
   font-size: 14px;
+  font-weight: 500;
   position: relative;
-  transition: color 0.2s, background 0.2s;
+  transition: all var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.08);
+    background: var(--bili-pink-light);
   }
 }
 
 .upload-btn {
-  background: var(--bili-pink);
-  color: #fff !important;
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  color: var(--bili-white) !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
 
   &:hover {
-    background: var(--bili-pink-hover);
+    background: linear-gradient(135deg, #818cf8 0%, #a5b4fc 100%);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.45);
+    transform: translateY(-1px);
   }
 }
 
 .login-btn {
   color: var(--bili-pink);
+  font-weight: 600;
 }
 
 .badge {
@@ -342,11 +402,12 @@ onUnmounted(() => {
   height: 16px;
   padding: 0 4px;
   border-radius: 8px;
-  background: var(--bili-pink);
-  color: #fff;
+  background: var(--bili-danger);
+  color: var(--bili-white);
   font-size: 10px;
   line-height: 16px;
   text-align: center;
+  font-weight: 600;
 }
 
 .user-avatar-wrap {
@@ -362,15 +423,16 @@ onUnmounted(() => {
 
 .user-avatar {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
-  transition: border-color 0.2s;
+  transition: all var(--bili-transition-fast);
 
   &:hover {
     border-color: var(--bili-pink);
+    box-shadow: 0 0 0 3px var(--bili-pink-light);
   }
 
   img {
@@ -382,32 +444,73 @@ onUnmounted(() => {
 
 .user-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  min-width: 140px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-  padding: 8px 0;
+  top: calc(100% + 12px);
+  right: -8px;
+  min-width: 180px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-lg);
+  box-shadow: var(--bili-shadow-lg);
+  padding: 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
-  transition: all 0.2s;
+  transition: all var(--bili-transition);
   z-index: 200;
+  overflow: hidden;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--bili-pink-light) 0%, rgba(251, 114, 153, 0.03) 100%);
+
+  .dropdown-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .dropdown-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bili-text);
+  }
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--bili-border-light);
+  margin: 0;
 }
 
 .dropdown-item {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--bili-text-secondary);
+  transition: all var(--bili-transition-fast);
   width: 100%;
-  padding: 10px 20px;
-  text-align: left;
-  font-size: 14px;
-  color: var(--bili-text);
-  transition: background 0.15s, color 0.15s;
 
   &:hover {
-    background: #f6f7f8;
+    background: var(--bili-pink-light);
     color: var(--bili-pink);
+  }
+
+  &.logout {
+    color: var(--bili-danger);
+    &:hover {
+      background: rgba(245, 63, 63, 0.06);
+      color: var(--bili-danger);
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
   }
 }
 </style>

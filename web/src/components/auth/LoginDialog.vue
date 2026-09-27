@@ -4,6 +4,18 @@
       <div v-if="visible" class="dialog-mask" @click.self="close">
         <div class="dialog-box">
           <button class="close-btn" @click="close">×</button>
+          <div class="dialog-brand">
+            <svg viewBox="0 0 48 48" width="40" height="40" fill="none">
+              <defs>
+                <linearGradient id="loginGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#6366f1"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" rx="12" fill="url(#loginGrad)"/>
+              <text x="24" y="33" text-anchor="middle" fill="white" font-size="22" font-weight="bold">V</text>
+            </svg>
+          </div>
           <div class="dialog-header">
             <button
               class="tab-btn"
@@ -23,9 +35,15 @@
 
           <form class="dialog-form" @submit.prevent="handleSubmit">
             <div class="form-item">
+              <div class="input-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </div>
               <input v-model="form.email" type="email" placeholder="邮箱" required />
             </div>
             <div class="form-item">
+              <div class="input-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg>
+              </div>
               <input
                 v-model="form.password"
                 type="password"
@@ -34,9 +52,15 @@
               />
             </div>
             <div v-if="mode === 'register'" class="form-item">
+              <div class="input-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
               <input v-model="form.nickName" type="text" placeholder="昵称" required />
             </div>
             <div class="form-item captcha-row">
+              <div class="input-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 1L3 14h7l-2 9 10-13h-7l2-9z"/></svg>
+              </div>
               <input v-model="form.checkCode" type="text" placeholder="验证码" required />
               <img
                 v-if="captchaImg"
@@ -51,7 +75,7 @@
             </div>
             <p v-if="errorMsg" class="error-msg">{{ errorMsg }}</p>
             <button type="submit" class="btn-primary submit-btn" :disabled="loading">
-              {{ loading ? '提交中...' : mode === 'login' ? '登录' : '注册' }}
+              {{ loading ? '提交中...' : mode === 'login' ? '登 录' : '注 册' }}
             </button>
           </form>
         </div>
@@ -162,24 +186,33 @@ watch(
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
 }
 
 .dialog-box {
   position: relative;
-  width: 400px;
-  padding: 32px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  width: 420px;
+  padding: 36px;
+  background: var(--bili-white);
+  border-radius: var(--bili-radius-xl);
+  box-shadow: var(--bili-shadow-lg);
+  animation: fadeInUp 0.3s ease;
+}
+
+.dialog-brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .close-btn {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 24px;
+  top: 14px;
+  right: 18px;
+  font-size: 22px;
   color: var(--bili-text-tertiary);
   line-height: 1;
+  transition: color var(--bili-transition-fast);
 
   &:hover {
     color: var(--bili-text);
@@ -188,38 +221,63 @@ watch(
 
 .dialog-header {
   display: flex;
-  gap: 24px;
-  margin-bottom: 24px;
+  gap: 32px;
+  margin-bottom: 28px;
+  justify-content: center;
 }
 
 .tab-btn {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--bili-text-tertiary);
-  padding-bottom: 8px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  padding-bottom: 10px;
+  border-bottom: 2.5px solid transparent;
+  transition: all var(--bili-transition);
 
   &.active {
     color: var(--bili-pink);
     border-bottom-color: var(--bili-pink);
   }
+
+  &:hover:not(.active) {
+    color: var(--bili-text-secondary);
+  }
 }
 
 .form-item {
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--bili-text-tertiary);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+  }
 
   input {
     width: 100%;
-    height: 44px;
-    padding: 0 16px;
-    border: 1px solid var(--bili-border);
-    border-radius: 8px;
+    height: 46px;
+    padding: 0 16px 0 42px;
+    border: 1.5px solid var(--bili-border);
+    border-radius: var(--bili-radius);
     font-size: 14px;
-    transition: border-color 0.2s;
+    transition: all var(--bili-transition);
 
     &:focus {
       border-color: var(--bili-pink);
+      box-shadow: 0 0 0 3px var(--bili-pink-light);
+    }
+
+    &::placeholder {
+      color: var(--bili-text-tertiary);
     }
   }
 }
@@ -235,20 +293,27 @@ watch(
 
 .captcha-img {
   width: 120px;
-  height: 44px;
-  border-radius: 8px;
+  height: 46px;
+  border-radius: var(--bili-radius);
   cursor: pointer;
   object-fit: cover;
+  border: 1.5px solid var(--bili-border);
+  transition: border-color var(--bili-transition);
+
+  &:hover {
+    border-color: var(--bili-pink);
+  }
 }
 
 .captcha-placeholder {
   width: 120px;
-  height: 44px;
-  border-radius: 8px;
-  border: 1px dashed var(--bili-border);
+  height: 46px;
+  border-radius: var(--bili-radius);
+  border: 1.5px dashed var(--bili-border);
   font-size: 12px;
   color: var(--bili-text-tertiary);
   flex-shrink: 0;
+  transition: all var(--bili-transition);
 
   &:hover {
     border-color: var(--bili-pink);
@@ -257,13 +322,20 @@ watch(
 }
 
 .error-msg {
-  color: #f85a54;
+  color: var(--bili-danger);
   font-size: 13px;
   margin-bottom: 12px;
+  padding: 8px 12px;
+  background: rgba(245, 63, 63, 0.06);
+  border-radius: var(--bili-radius);
 }
 
 .submit-btn {
   width: 100%;
   margin-top: 8px;
+  height: 46px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--bili-radius);
 }
 </style>

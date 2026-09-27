@@ -268,7 +268,7 @@ onMounted(loadInfo)
 <style scoped lang="scss">
 .settings-form {
   max-width: 480px;
-  background: #fff;
+  background: var(--bili-white);
   padding: 24px;
   border-radius: var(--bili-radius);
   box-shadow: var(--bili-shadow);

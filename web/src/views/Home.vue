@@ -1,6 +1,5 @@
 <template>
   <div class="home-page">
-    <!-- 轮播推荐区 -->
     <section v-if="recommendList.length" class="banner-section container">
       <div class="banner-main">
         <router-link
@@ -31,17 +30,22 @@
 
     <section v-if="hotList.length" class="video-section container">
       <div class="section-header">
-        <h2 class="section-title">热门视频</h2>
+        <h2 class="section-title">
+          <span class="title-icon">🔥</span>
+          热门视频
+        </h2>
       </div>
       <div class="video-grid">
         <VideoCard v-for="video in hotList" :key="video.videoId" :video="video" />
       </div>
     </section>
 
-    <!-- 视频列表 -->
     <section class="video-section container">
       <div class="section-header">
-        <h2 class="section-title">推荐视频</h2>
+        <h2 class="section-title">
+          <span class="title-icon">✨</span>
+          推荐视频
+        </h2>
         <button v-if="loading" class="refresh-btn" disabled>加载中...</button>
         <button v-else class="refresh-btn" @click="loadVideos(true)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -56,6 +60,9 @@
         <VideoCard v-for="video in videoList" :key="video.videoId" :video="video" />
       </div>
       <div v-else class="empty-state">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="var(--bili-text-tertiary)" style="margin-bottom:12px">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
         <p>暂无视频</p>
       </div>
 
@@ -148,8 +155,8 @@ onMounted(() => {
 .banner-section {
   display: flex;
   gap: 12px;
-  margin-bottom: 24px;
-  height: 280px;
+  margin-bottom: 28px;
+  height: 300px;
 }
 
 .banner-main {
@@ -167,9 +174,10 @@ onMounted(() => {
 .banner-item {
   position: relative;
   display: block;
-  border-radius: var(--bili-radius);
+  border-radius: var(--bili-radius-lg);
   overflow: hidden;
-  background: #e3e5e7;
+  background: var(--bili-border-light);
+  box-shadow: var(--bili-shadow);
 
   &.main {
     height: 100%;
@@ -179,11 +187,15 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &:hover img {
-    transform: scale(1.03);
+    transform: scale(1.05);
+  }
+
+  &:hover .banner-info {
+    opacity: 1;
   }
 }
 
@@ -192,13 +204,15 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 40px 16px 12px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 48px 16px 14px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
   color: #fff;
+  opacity: 0.9;
+  transition: opacity 0.3s;
 
   h2 {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -207,6 +221,7 @@ onMounted(() => {
 
   p {
     font-size: 13px;
+    font-weight: 500;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -218,27 +233,36 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .section-title {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bili-text);
+}
+
+.title-icon {
   font-size: 20px;
-  font-weight: 600;
 }
 
 .refresh-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--bili-radius);
   font-size: 13px;
+  font-weight: 500;
   color: var(--bili-text-secondary);
-  transition: color 0.2s, background 0.2s;
+  transition: all var(--bili-transition);
 
   &:hover:not(:disabled) {
     color: var(--bili-pink);
-    background: rgba(251, 114, 153, 0.08);
+    background: var(--bili-pink-light);
   }
 }
 
@@ -249,15 +273,19 @@ onMounted(() => {
 }
 
 .empty-state {
-  text-align: center;
-  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
   color: var(--bili-text-tertiary);
+  font-size: 15px;
 }
 
 .load-more {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
 .loading-more {
@@ -273,7 +301,7 @@ onMounted(() => {
   }
 
   .banner-main .banner-item {
-    height: 200px;
+    height: 220px;
   }
 }
 </style>
